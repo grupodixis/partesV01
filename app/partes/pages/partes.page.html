@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-title>Partes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-lista-partes [listaPartes]="listaPartes" ></app-lista-partes>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add" routerLink="/partes/crear"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

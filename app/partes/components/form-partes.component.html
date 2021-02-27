@@ -1,0 +1,126 @@
+<form (ngSubmit)="enviarParte()" #fPartes >
+<ion-slides #sliderForm>
+
+  <ion-slide centeredSlides="true">
+    <ion-grid fixed>
+      <ion-row></ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+          <ion-label position="stacked">
+            Fecha del parte
+            
+          </ion-label>
+          <ion-datetime 
+        name="fecha" 
+        [(ngModel)]="parte.fecha" 
+        #fecha 
+        pickerFormat="DDD. DD/MM/YYYY" 
+        displayFormat="DD/MM/YY" 
+        placeholder="Seleccione fecha"
+        dayShortNames="Domingo,Lunes,Martes,Miercoles,Jueves,Viernes,Sabado">
+          </ion-datetime>
+
+        </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Hora de Inicio:</ion-label>
+            <ion-datetime name="inicio" [(ngModel)]="parte.inicio" #inicio displayFormat="HH:mm" minuteValues="0,15,30,45" placeholder="Hora de inicio"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Final:</ion-label>
+            <ion-datetime name="final" [(ngModel)]="parte.final" #final displayFormat="HH:mm" minuteValues="0,15,30,45" placeholder="Hora de final"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+
+
+      <ion-row>
+        <ion-col size="12">
+          <ion-button (click)="nextSlide()" type="button" color="dark" [disabled]="!parte.fecha || !parte.inicio || !parte.final" class="center middle">
+            Siguiente
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-slide>
+    
+
+  
+  <ion-slide>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>
+          Selección de proyecto, capitulo y tipo de tarea:
+        </ion-label>
+      </ion-list-header>
+      
+      <ion-item>
+        <ion-label position="stacked">Proyecto / Obra:</ion-label>
+        <ion-select cancel-text ="cancelar" placeholder="Seleccione uno" #proyectoSel interface="action-sheet">
+          
+          <ion-select-option [value]="i" *ngFor="let proyecto of proyectos; let i = index">{{proyecto.titulo}}</ion-select-option>
+          
+        </ion-select>
+      </ion-item>
+      
+      
+      <ion-item *ngIf="proyectoSel.value >= 0">
+        <ion-label position="stacked">Capitulo:</ion-label>
+        <ion-select name="capitulo" [(ngModel)]="parte.capitulo" #capituloSel placeholder="Seleccione uno" interface="action-sheet" cancel-text ="cancelar">
+          
+          <ion-select-option 
+          
+          [value]="capitulo.id" 
+          *ngFor="let capitulo of proyectos[proyectoSel.value].capitulos">
+          {{capitulo.nombre}}
+        </ion-select-option>
+        
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="stacked">Tipo de tarea:</ion-label>
+      <ion-select 
+      cancel-text ="cancelar" 
+      name="tarea" [(ngModel)]="parte.tarea" 
+      #tareaSel 
+      placeholder="Seleccione tipo de tarea" 
+      interface="action-sheet" 
+      (ionChange)="formListo()">
+      
+      <ion-select-option [value]="tarea.id" *ngFor="let tarea of tareas">{{tarea.nombre}}</ion-select-option>
+      
+      
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Observaciones</ion-label>
+    <ion-textarea 
+    name="observaciones" 
+    [(ngModel)]="parte.observaciones" 
+    placeholder="Observaciones" 
+    #observaciones>
+  </ion-textarea>
+</ion-item>
+
+</ion-list>
+<ion-button expand="block" color="primary" [disabled]="!parte.tarea || !parte.capitulo || !parte.fecha || !parte.inicio || !parte.final" type="submit" >Terminar</ion-button>
+</ion-slide>
+</ion-slides>
+
+
+
+
+
+
+</form>

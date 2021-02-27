@@ -1,0 +1,16 @@
+<ion-list>
+  <ion-item *ngFor="let parte of listaPartes">
+    <ion-avatar slot="start">
+      <!-- <img *ngIf=" apihost+parte.imagenes[0].formats.thumbnail.url" [src]="apihost+parte.imagenes[0].formats.thumbnail.url">
+       -->
+    </ion-avatar>
+    <ion-label>
+      <h2>Fecha: {{parte.fecha}} </h2>
+      <h3>Inicio: {{parte.inicio.split('.',1)}}</h3>
+      <h3>Final: {{parte.final.split('.',1)}}</h3>
+      <i>Tipo de tarea: <b>{{parte.tarea.nombre}}</b></i>
+      <p><b>Observaciones:</b>  {{parte.observaciones}}</p>
+    </ion-label>
+  </ion-item>
+  
+</ion-list>
